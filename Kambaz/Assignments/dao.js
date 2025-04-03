@@ -7,8 +7,8 @@ export const createAssignment = (assignment) => {
   return newAssignment;
 };
 
-export const findAssignmentsForModule = (moduleId) => {
-  return db.assignments.filter((a) => a.module === moduleId);
+export const findAssignmentsForCourse = (courseId) => {
+  return db.assignments.filter((a) => a.course === courseId);
 };
 
 export const updateAssignment = (assignmentId, updates) => {
@@ -19,6 +19,6 @@ export const updateAssignment = (assignmentId, updates) => {
 };
 
 export const deleteAssignment = (assignmentId) => {
-    db.assignments = db.assignments.filter((a) => a._id !== assignmentId);
-    return { status: "deleted" };
-  };
+  db.assignments = db.assignments.filter((a) => a._id !== assignmentId);
+  return { status: "deleted" };
+};
