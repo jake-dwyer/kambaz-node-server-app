@@ -17,11 +17,23 @@ app.use(
         origin:  process.env.NETLIFY_URL || "http://localhost:5173",
     })
 );
+const isDev = process.env.NODE_ENV === "development";
+
 const sessionOptions = {
-    secret: process.env.SESSION_SECRET || "kambaz",
-    resave: false,
-    saveUninitialized: false,
-  };
+  secret: process.env.SESSION_SECRET || "kambaz",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    sameSite: isDev ? "lax" : "none",
+    secure: !isDev,                    
+  },
+};
+
+if (!isDev) {
+  sessionOptions.proxy = true;
+  sessionOptions.cookie.domain = process.env.NODE_SERVER_DOMAIN;
+}
+
   if (process.env.NODE_ENV !== "development") {
     sessionOptions.proxy = true;
     sessionOptions.cookie = {

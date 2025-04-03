@@ -35,5 +35,8 @@ export default function CourseRoutes(app) {
         const newModule = modulesDao.createModule(module);
         res.send(newModule);
       });
-    
+    app.post("/api/courses", (req, res) => {
+        const newCourse = dao.createCourse(req.body);
+        res.send(newCourse);
+      });
 }
