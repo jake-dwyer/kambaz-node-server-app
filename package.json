@@ -29,8 +29,11 @@
   },
   "homepage": "https://github.com/jannunzi/kambaz-node-server-app#readme",
   "dependencies": {
+    "@reduxjs/toolkit": "^2.6.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
-    "express-session": "^1.18.1"
+    "express-session": "^1.18.1",
+    "uuid": "^11.1.0"
   }
 }
