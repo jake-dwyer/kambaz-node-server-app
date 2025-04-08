@@ -1,0 +1,7 @@
+cd to dir
+sudo systemctl start mongod
+
+suod systemctl status mongod
+
+open compass
+
