@@ -5,3 +5,4 @@ suod systemctl status mongod
 
 open compass
 
+got to page 209
