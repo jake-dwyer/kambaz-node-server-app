@@ -1,39 +1,61 @@
 import * as dao from "./dao.js";
 
 export default function EnrollmentRoutes(app) {
-  app.post("/api/users/:userId/courses/:courseId", (req, res) => {
+  app.post("/api/users/:userId/courses/:courseId", async (req, res) => {
     const { userId, courseId } = req.params;
-    dao.enrollUserInCourse(userId, courseId);
-    res.sendStatus(200);
+    try {
+      const result = await dao.enrollUserInCourse(userId, courseId);
+      res.json(result);
+    } catch (err) {
+      console.error("Error enrolling:", err);
+      res.status(500).json({ error: err.message });
+    }
   });
 
-  app.delete("/api/users/:userId/courses/:courseId", (req, res) => {
+  app.delete("/api/users/:userId/courses/:courseId", async (req, res) => {
     const { userId, courseId } = req.params;
-    dao.unenrollUserFromCourse(userId, courseId);
-    res.sendStatus(200);
+    try {
+      const result = await dao.unenrollUserFromCourse(userId, courseId);
+      res.json(result);
+    } catch (err) {
+      console.error("Error unenrolling:", err);
+      res.status(500).json({ error: err.message });
+    }
   });
 
-  app.get("/api/users/:userId/courses", (req, res) => {
+  app.get("/api/users/:userId/courses", async (req, res) => {
     const { userId } = req.params;
-    const courses = dao.findCoursesForUser(userId);
-    res.send(courses);
+    try {
+      const courses = await dao.findCoursesForUser(userId);
+      res.json(courses);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
   });
 
-  app.get("/api/courses/:courseId/users", (req, res) => {
+  app.get("/api/courses/:courseId/users", async (req, res) => {
     const { courseId } = req.params;
-    const users = dao.findUsersForCourse(courseId);
-    res.send(users);
+    try {
+      const users = await dao.findUsersForCourse(courseId);
+      res.json(users);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
   });
 
-  app.get("/api/enrollments", (req, res) => {
-    const enrollments = dao.findAllEnrollments();
-    res.send(enrollments);
-  });
+  app.get("/api/enrollments/user/:userId", async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const userEnrollments = await dao.findEnrollmentsForUser(userId);
+      res.send(userEnrollments);
+    } catch (err) {
+      console.error("🔥 Failed to get enrollments:", err);
+      res.status(500).json({ error: err.message });
+    }
+  });  
 
-  app.get("/api/enrollments/user/:userId", (req, res) => {
-    const { userId } = req.params;
-    const userEnrollments = dao.findEnrollmentsForUser(userId);
-    res.send(userEnrollments);
+  app.get("/api/enrollments", async (req, res) => {
+    const all = await dao.findAllEnrollments();
+    res.json(all);
   });
-  
 }
