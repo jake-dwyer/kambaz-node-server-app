@@ -40,7 +40,7 @@ const sessionOptions = {
 
 if (!isDev) {
   sessionOptions.proxy = true;
-  sessionOptions.cookie.domain = new URL(process.env.NODE_SERVER_DOMAIN).hostname;
+  sessionOptions.cookie.domain = new URL(`https://${process.env.NODE_SERVER_DOMAIN}`).hostname;
 }
 
 app.set("trust proxy", 1); // needed for secure cookies behind proxies
