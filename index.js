@@ -36,18 +36,21 @@ app.use(
 
 const isDev = process.env.NODE_ENV === "development";
 
+if (!isDev) {
+  app.set("trust proxy", 1); // ⬅️ this is CRUCIAL for trusting session cookies via Render
+}
+
 const sessionOptions = {
   secret: process.env.SESSION_SECRET || "kambaz",
   resave: false,
   saveUninitialized: false,
   cookie: {
     sameSite: isDev ? "lax" : "none",
-    secure: !isDev
+    secure: !isDev,
   }
 };
 
 if (!isDev) {
-  sessionOptions.proxy = true;
   sessionOptions.cookie.domain = process.env.NODE_SERVER_DOMAIN;
 }
 
