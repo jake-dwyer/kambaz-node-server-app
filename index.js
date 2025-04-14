@@ -18,13 +18,13 @@ const app = express()
 app.use(
     cors({
         credentials: true,
-        origin:  process.env.NETLIFY_URL || "http://localhost:5173",
+        origin:  process.env.NETLIFY_URL
     })
 );
 const isDev = process.env.NODE_ENV === "development";
 
 const sessionOptions = {
-  secret: process.env.SESSION_SECRET || "kambaz",
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
