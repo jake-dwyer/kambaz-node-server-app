@@ -51,6 +51,11 @@ ModuleRoutes(app);
 AssignmentRoutes(app);
 EnrollmentRoutes(app);
 
+app.get("/debug/assignments", async (req, res) => {
+  const data = await mongoose.connection.db.collection("assignments").find().toArray();
+  res.json(data);
+});
+
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}!`);
