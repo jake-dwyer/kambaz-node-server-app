@@ -19,12 +19,13 @@ mongoose.connect(CONNECTION_STRING);
 const app = express();
 const isDev = process.env.NODE_ENV === "development";
 
-app.use(
-  cors({
-    origin: isDev ? "http://localhost:5173" : process.env.NETLIFY_URL,
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: isDev ? "http://localhost:5173" : process.env.NETLIFY_URL,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 const sessionOptions = {
   secret: process.env.SESSION_SECRET || "kambaz",
