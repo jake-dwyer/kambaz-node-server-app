@@ -18,7 +18,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  process.env.NETLIFY_URL
+  "https://a6--cosmic-donut-a20d76.netlify.app"
 ];
 
 app.use(
