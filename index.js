@@ -19,8 +19,10 @@ const isDev = process.env.NODE_ENV === "development";
 
 app.use(
   cors({
+    origin: isDev
+      ? "http://localhost:5173"
+      : "https://a6--cosmic-donut-a20d76.netlify.app",
     credentials: true,
-    origin: isDev ? "http://localhost:5173" : process.env.NETLIFY_URL,
   })
 );
 
