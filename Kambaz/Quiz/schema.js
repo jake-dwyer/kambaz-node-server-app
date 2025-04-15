@@ -1,6 +1,6 @@
+// Kambaz/Quiz/schema.js
 import mongoose from "mongoose";
 
-// Question types 
 const questionSchema = new mongoose.Schema({
   type: {
     type: String,
@@ -17,20 +17,18 @@ const questionSchema = new mongoose.Schema({
   correctTrueFalse: Boolean,
 }, { _id: true });
 
-// storing attempts of students
 const attemptSchema = new mongoose.Schema({
-  student: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  student: String,
   answers: [mongoose.Schema.Types.Mixed],
   score: Number,
   takenAt: { type: Date, default: Date.now },
 }, { _id: false });
 
-// Data of the quiz itself
 const quizSchema = new mongoose.Schema({
   title: { type: String, default: "Untitled Quiz" },
   description: String,
-  course: { type: mongoose.Schema.Types.ObjectId, ref: "Course", required: true },
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  course: String,
+  createdBy: String,
   published: { type: Boolean, default: false },
   quizType: {
     type: String,
@@ -42,9 +40,10 @@ const quizSchema = new mongoose.Schema({
     enum: ["Quizzes", "Exams", "Assignments", "Project"],
     default: "Quizzes",
   },
+  points: { type: Number, default: 0 },
   settings: {
     shuffleAnswers: { type: Boolean, default: true },
-    timeLimit: { type: Number, default: 20 }, // minutes
+    timeLimit: { type: Number, default: 20 },
     multipleAttempts: { type: Boolean, default: false },
     howManyAttempts: { type: Number, default: 1 },
     showCorrectAnswers: { type: Boolean, default: false },
