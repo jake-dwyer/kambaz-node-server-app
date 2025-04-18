@@ -22,7 +22,7 @@ app.use(
   cors({
     origin: isDev
       ? "http://localhost:5173"
-      : "https://a6--cosmic-donut-a20d76.netlify.app",
+      : "https://quiz--cosmic-donut-a20d76.netlify.app",
     credentials: true,
   })
 );
